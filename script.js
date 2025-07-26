@@ -1,18 +1,13 @@
-const historyList = document.getElementById("history-list");
+const historyContainer = document.getElementById("history-display");
 let history = [];
 
 function addToHistory(color) {
-  history.push(color);
+  history.push(color[0]); // Only keep the first letter: 'R', 'B', or 'G'
   updateHistoryUI();
 }
 
 function updateHistoryUI() {
-  historyList.innerHTML = "";
-  history.forEach((entry, index) => {
-    const li = document.createElement("li");
-    li.textContent = `Round ${index + 1}: ${entry}`;
-    historyList.appendChild(li);
-  });
+  historyContainer.textContent = history.join(" ");
 }
 
 function undoLast() {
