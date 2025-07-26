@@ -1,1 +1,4 @@
-body { font-family: sans-serif; }
+
+body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+#buttons button { margin: 5px; font-size: 18px; padding: 10px; }
+#predictionBox { margin-top: 20px; padding: 10px; background: #fff; border: 1px solid #ccc; }

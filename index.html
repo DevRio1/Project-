@@ -1,1 +1,26 @@
-<html><body><h1>Phase 5 placeholder</h1></body></html>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Color Prediction Tool - Phase 5</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Phase 5 - Advanced PRNG Cracking Tool</h1>
+  <input type="file" id="imageUpload" />
+  <div id="buttons">
+    <button onclick="addColor('R')">Red</button>
+    <button onclick="addColor('B')">Black</button>
+    <button onclick="addColor('G')">Green</button>
+    <button onclick="undo()">Undo</button>
+    <button onclick="clearAll()">Clear All</button>
+  </div>
+  <div id="predictionBox">
+    <h2>Next Prediction: <span id="nextPrediction">?</span></h2>
+    <p>Confidence: <span id="confidence">--%</span></p>
+  </div>
+  <canvas id="entropyChart" width="400" height="100"></canvas>
+  <script src="script.js"></script>
+</body>
+</html>
