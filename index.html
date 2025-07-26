@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Color Prediction Tool - Phase 4</title>
+  <title>Color Predictor - Phase 4 Advanced</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>🎯 Color Prediction Tool - PRNG Cracker</h1>
+    <h1>🎯 Color Prediction Tool - PRNG Cracker Advanced</h1>
     <div class="button-group">
       <button onclick="addColor('R')">🔴</button>
       <button onclick="addColor('B')">⚫</button>
@@ -28,9 +28,19 @@
       <input type="file" id="imageUpload" accept="image/*" />
     </div>
 
-    <div id="prng-report" class="prng-report"></div>
+    <h2>PRNG Cracking Status</h2>
+    <pre id="prng-report" class="prng-report"></pre>
+
+    <h2>Datasets</h2>
+    <button onclick="saveDataset()">💾 Save Dataset</button>
+    <button onclick="loadDataset()">📂 Load Dataset</button>
+    <div id="dataset-list"></div>
+
+    <h2>Entropy Graph</h2>
+    <canvas id="entropyChart" width="600" height="200"></canvas>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

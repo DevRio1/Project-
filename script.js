@@ -1,30 +1,34 @@
 
 let history = [];
+let datasets = JSON.parse(localStorage.getItem('datasets') || '[]');
 
 function addColor(color) {
   history.push(color);
   updateDisplay();
   runPRNGCracker();
+  updateEntropyGraph();
 }
 
 function undo() {
   history.pop();
   updateDisplay();
   runPRNGCracker();
+  updateEntropyGraph();
 }
 
 function clearAll() {
   history = [];
   updateDisplay();
   runPRNGCracker();
+  updateEntropyGraph();
 }
 
 function updateDisplay() {
   document.getElementById("history-display").textContent = history.join(" ");
   document.getElementById("prediction-box").textContent = getPrediction();
+  updateDatasetList();
 }
 
-// Simple prediction logic (reuse from Phase 3)
 function getPrediction() {
   if (history.length === 0) return "No data yet.";
 
@@ -58,7 +62,103 @@ function colorName(code) {
   return code === "R" ? "RED" : code === "B" ? "BLACK" : "GREEN";
 }
 
-// Setup Web Worker
+// Save / Load Datasets
+function saveDataset() {
+  if (history.length === 0) {
+    alert("No data to save.");
+    return;
+  }
+  const name = prompt("Enter dataset name:");
+  if (!name) return;
+  datasets.push({ name, data: [...history] });
+  localStorage.setItem('datasets', JSON.stringify(datasets));
+  updateDatasetList();
+}
+
+function loadDataset() {
+  if (datasets.length === 0) {
+    alert("No saved datasets.");
+    return;
+  }
+  const name = prompt("Enter dataset name to load:");
+  const ds = datasets.find(d => d.name === name);
+  if (!ds) {
+    alert("Dataset not found.");
+    return;
+  }
+  history = [...ds.data];
+  updateDisplay();
+  runPRNGCracker();
+  updateEntropyGraph();
+}
+
+function updateDatasetList() {
+  const list = document.getElementById("dataset-list");
+  if (datasets.length === 0) {
+    list.textContent = "No saved datasets.";
+    return;
+  }
+  list.innerHTML = "";
+  datasets.forEach(ds => {
+    const div = document.createElement("div");
+    div.textContent = ds.name + " (" + ds.data.length + " rounds)";
+    list.appendChild(div);
+  });
+}
+
+// Entropy calculation and graph with Chart.js
+function calculateEntropy(arr) {
+  const counts = {};
+  arr.forEach(x => counts[x] = (counts[x] || 0) + 1);
+  const total = arr.length;
+  let entropy = 0;
+  Object.values(counts).forEach(count => {
+    const p = count / total;
+    entropy -= p * Math.log2(p);
+  });
+  return entropy;
+}
+
+let entropyChart;
+
+function updateEntropyGraph() {
+  if (!entropyChart) {
+    const ctx = document.getElementById('entropyChart').getContext('2d');
+    entropyChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Entropy',
+          data: [],
+          borderColor: 'rgba(75, 192, 192, 1)',
+          fill: false,
+          tension: 0.1,
+          pointRadius: 0
+        }]
+      },
+      options: {
+        animation: false,
+        scales: {
+          x: { display: true, title: { display: true, text: 'Round' } },
+          y: { min: 0, max: 1.6, display: true, title: { display: true, text: 'Entropy' } }
+        }
+      }
+    });
+  }
+
+  // Calculate entropy over last N rounds progressively
+  const entropies = [];
+  for (let i = 1; i <= history.length; i++) {
+    entropies.push(calculateEntropy(history.slice(0, i)) / Math.log2(3)); // Normalize max entropy
+  }
+
+  entropyChart.data.labels = entropies.map((_, i) => i + 1);
+  entropyChart.data.datasets[0].data = entropies;
+  entropyChart.update();
+}
+
+// PRNG cracking worker with advanced models
 let worker = new Worker('worker.js');
 
 worker.onmessage = function(e) {
