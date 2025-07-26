@@ -48,5 +48,14 @@ body {
 }
 
 #upload-section {
-  margin-top: 30px;
+  margin-top: 40px;
+  padding: 15px;
+  background-color: #fff;
+  border: 2px dashed #aaa;
+  border-radius: 10px;
+  display: block;
+}
+
+#upload-section input {
+  margin-bottom: 10px;
 }
