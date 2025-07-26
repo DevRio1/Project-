@@ -43,3 +43,16 @@ button {
   padding: 4px;
   width: 200px;
 }
+.prng-report {
+  margin-top: 25px;
+  padding: 15px;
+  background: #eef;
+  border: 2px solid #99f;
+  border-radius: 10px;
+  font-family: monospace;
+  font-size: 14px;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  white-space: pre-wrap;
+}
