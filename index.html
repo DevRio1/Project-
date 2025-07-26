@@ -1,34 +1,33 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>Color Prediction Tracker - Phase 2</title>
+  <title>Color Predictor</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.0.3/dist/tesseract.min.js"></script>
 </head>
 <body>
-  <h1>Color Prediction Tracker</h1>
+  <div class="container">
+    <h1>🎯 Color Prediction Tool</h1>
+    <div class="button-group">
+      <button onclick="addColor('R')">🔴</button>
+      <button onclick="addColor('B')">⚫</button>
+      <button onclick="addColor('G')">🟢</button>
+    </div>
+    <div class="button-group">
+      <button onclick="undo()">↩️ Undo</button>
+      <button onclick="clearAll()">🧹 Clear All</button>
+    </div>
 
-  <div id="button-container">
-    <button class="color-btn green">Green</button>
-    <button class="color-btn black">Black</button>
-    <button class="color-btn red">Red</button>
+    <div id="history-display" class="history"></div>
+    <div id="prediction-box" class="prediction-box"></div>
+
+    <div id="upload-section">
+      <label for="imageUpload">📷 Upload Screenshot:</label><br />
+      <input type="file" id="imageUpload" accept="image/*" />
+    </div>
   </div>
-
-  <div id="action-buttons">
-    <button id="undo-btn">Undo</button>
-    <button id="clear-btn">Clear All</button>
-  </div>
-
-  <div id="prediction-box" style="font-size: 20px; margin-top: 20px;"></div>
-<div id="upload-section">
-    <input type="file" id="image-input" accept="image/*" />
-    <p id="upload-status">Upload a screenshot of the first 100 rounds.</p>
-  </div>
-
-  <div id="history-display"></div>
-
   <script src="script.js"></script>
 </body>
 </html>

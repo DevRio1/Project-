@@ -1,61 +1,45 @@
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: sans-serif;
+  background: #fff;
   text-align: center;
+  margin: 0;
+  padding: 0;
+}
+.container {
   padding: 20px;
-  background: #f4f4f4;
 }
-
-#button-container {
-  margin-bottom: 20px;
-}
-
-.color-btn {
+h1 {
   font-size: 24px;
-  padding: 15px 30px;
-  margin: 10px;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  outline: none;
+}
+.button-group {
+  margin: 10px 0;
+}
+button {
+  font-size: 24px;
+  margin: 0 10px;
+  padding: 10px 20px;
   touch-action: manipulation;
 }
-
-.green {
-  background-color: #28a745;
-}
-
-.black {
-  background-color: #333;
-}
-
-.red {
-  background-color: #dc3545;
-}
-
-#action-buttons button {
-  font-size: 18px;
-  margin: 5px;
-  padding: 10px 20px;
-}
-
 #history-display {
-  font-size: 28px;
-  margin-top: 30px;
-  word-wrap: break-word;
-  max-width: 90%;
-  margin-left: auto;
-  margin-right: auto;
+  font-size: 24px;
+  margin-top: 15px;
 }
-
-#upload-section {
-  margin-top: 40px;
-  padding: 15px;
-  background-color: #fff;
+.prediction-box {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px;
+  background: #f8f8f8;
   border: 2px dashed #aaa;
-  border-radius: 10px;
-  display: block;
+  margin-top: 15px;
+  text-align: center;
+  white-space: pre-line;
 }
-
-#upload-section input {
-  margin-bottom: 10px;
+#upload-section {
+  margin-top: 15px;
+}
+#imageUpload {
+  margin-top: 5px;
+  padding: 4px;
+  width: 200px;
 }
