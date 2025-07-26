@@ -1,116 +1,28 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>Color Prediction Tool</title>
-  <style>
-    body { font-family: sans-serif; text-align: center; padding: 1rem; }
-    button {
-      font-size: 24px;
-      margin: 5px;
-      padding: 1rem 2rem;
-      border: none;
-      border-radius: 5px;
-    }
-    #controls { margin-bottom: 1rem; }
-    .green { background: green; color: white; }
-    .black { background: black; color: white; }
-    .red { background: red; color: white; }
-    #history { font-size: 20px; word-wrap: break-word; }
-    #upload-box { margin: 1rem 0; }
-    #prediction-box { margin: 1rem 0; font-weight: bold; font-size: 18px; }
-    canvas { max-width: 100%; margin-top: 1rem; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Color Predictor</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Color Prediction Tool</h1>
-
-  <div id="controls">
-    <button class="green" onclick="addColor('G')">Green</button>
-    <button class="black" onclick="addColor('B')">Black</button>
-    <button class="red" onclick="addColor('R')">Red</button>
-    <button onclick="undo()">Undo</button>
-    <button onclick="clearAll()">Clear All</button>
+  <div id="app">
+    <h1>Color Predictor Tool</h1>
+    <div class="buttons">
+      <button onclick="addColor('R')">🔴</button>
+      <button onclick="addColor('B')">⚫</button>
+      <button onclick="addColor('G')">🟢</button>
+    </div>
+    <div class="controls">
+      <button onclick="undo()">Undo</button>
+      <button onclick="clearAll()">Clear All</button>
+      <input type="file" accept="image/*" onchange="handleImageUpload(event)" />
+    </div>
+    <div id="history"></div>
+    <div id="predictionBox">Next: <span id="prediction">?</span> (<span id="confidence">0%</span>)</div>
+    <canvas id="entropyGraph" width="300" height="100"></canvas>
   </div>
-
-  <div id="upload-box">
-    <input type="file" id="imageUpload" accept="image/*" />
-  </div>
-
-  <div id="history"></div>
-  <div id="prediction-box"></div>
-  <canvas id="entropyChart" width="300" height="150"></canvas>
-
-  <script>
-    let history = [];
-
-    function updateHistory() {
-      document.getElementById("history").textContent = "History: " + history.join(" ");
-      predictNext();
-      drawEntropy();
-    }
-
-    function addColor(color) {
-      history.push(color);
-      updateHistory();
-    }
-
-    function undo() {
-      history.pop();
-      updateHistory();
-    }
-
-    function clearAll() {
-      history = [];
-      updateHistory();
-    }
-
-    function predictNext() {
-      if (history.length === 0) {
-        document.getElementById("prediction-box").textContent = "";
-        return;
-      }
-
-      const counts = { R: 0, G: 0, B: 0 };
-      history.forEach(c => counts[c]++);
-      const total = history.length;
-      const probs = {
-        R: (counts.R / total * 100).toFixed(1),
-        G: (counts.G / total * 100).toFixed(1),
-        B: (counts.B / total * 100).toFixed(1)
-      };
-
-      const predicted = Object.keys(probs).reduce((a, b) => probs[a] > probs[b] ? a : b);
-      document.getElementById("prediction-box").textContent =
-        `Next likely: ${predicted} (${probs[predicted]}%)`;
-    }
-
-    function drawEntropy() {
-      const ctx = document.getElementById("entropyChart").getContext("2d");
-      const counts = { R: 0, G: 0, B: 0 };
-      history.forEach(c => counts[c]++);
-      const total = history.length || 1;
-      const probs = Object.values(counts).map(c => c / total);
-      const entropy = -probs.reduce((acc, p) => p > 0 ? acc + p * Math.log2(p) : acc, 0);
-
-      ctx.clearRect(0, 0, 300, 150);
-      ctx.fillStyle = "blue";
-      ctx.fillRect(0, 150 - entropy * 50, 300, entropy * 50);
-    }
-
-    // Handle image upload (placeholder - simulate fill)
-    document.getElementById("imageUpload").addEventListener("change", (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        alert("Simulated auto-fill from image. 100 rounds (placeholder)");
-        history = Array(100).fill().map(() => ["R", "G", "B"][Math.floor(Math.random() * 3)]);
-        updateHistory();
-      }
-    });
-
-    updateHistory();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

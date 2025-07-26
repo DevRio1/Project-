@@ -1,43 +1,21 @@
 
 body {
-  font-family: sans-serif;
+  font-family: Arial, sans-serif;
   text-align: center;
-  background: #f9f9f9;
-  margin: 0;
   padding: 20px;
 }
-#imageUpload {
-  margin: 15px auto;
-  display: block;
-  padding: 8px;
+.buttons button, .controls button {
+  font-size: 24px;
+  margin: 5px;
+  padding: 10px 20px;
 }
-#buttonContainer {
-  margin: 20px auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
+#history {
+  margin-top: 10px;
+  font-size: 20px;
+  word-break: break-word;
 }
-.color-btn, .control-btn {
-  font-size: 22px;
-  padding: 14px 18px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.red { background-color: #ffdddd; }
-.black { background-color: #dddddd; }
-.green { background-color: #ddffdd; }
-.control-btn { background-color: #e0e0ff; }
 #predictionBox {
-  background: #fff;
-  border: 1px solid #ccc;
-  margin: 20px auto;
-  display: inline-block;
-  padding: 12px 20px;
-  border-radius: 8px;
-}
-canvas {
   margin-top: 20px;
-  border: 1px solid #ccc;
+  font-size: 22px;
+  font-weight: bold;
 }
