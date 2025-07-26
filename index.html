@@ -1,26 +1,32 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Color Prediction Tool - Phase 5</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Prediction Tool - Phase 5.1</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Phase 5 - Advanced PRNG Cracking Tool</h1>
-  <input type="file" id="imageUpload" />
-  <div id="buttons">
-    <button onclick="addColor('R')">Red</button>
-    <button onclick="addColor('B')">Black</button>
-    <button onclick="addColor('G')">Green</button>
-    <button onclick="undo()">Undo</button>
-    <button onclick="clearAll()">Clear All</button>
+  <h1>🎯 Color Prediction Tool - Phase 5.1</h1>
+
+  <input type="file" id="imageUpload" accept="image/*">
+
+  <div id="buttonContainer">
+    <button class="color-btn red" ontouchstart="" onclick="addColor('R')">🔴</button>
+    <button class="color-btn black" ontouchstart="" onclick="addColor('B')">⚫</button>
+    <button class="color-btn green" ontouchstart="" onclick="addColor('G')">🟢</button>
+    <button class="control-btn" ontouchstart="" onclick="undo()">↩️ Undo</button>
+    <button class="control-btn" ontouchstart="" onclick="clearAll()">🧹 Clear All</button>
   </div>
+
   <div id="predictionBox">
-    <h2>Next Prediction: <span id="nextPrediction">?</span></h2>
+    <h2>Prediction: <span id="nextPrediction">?</span></h2>
     <p>Confidence: <span id="confidence">--%</span></p>
   </div>
-  <canvas id="entropyChart" width="400" height="100"></canvas>
+
+  <canvas id="entropyChart" width="300" height="80"></canvas>
+
   <script src="script.js"></script>
 </body>
 </html>

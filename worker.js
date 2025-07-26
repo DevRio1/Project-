@@ -1,6 +1,6 @@
 
-// Web Worker for PRNG cracking (placeholder)
+// Web Worker - placeholder for PRNG cracking
 self.onmessage = function(e) {
   const data = e.data;
-  // Future: analyze entropy, guess PRNG seed, return best next color
+  // TODO: Advanced pattern and entropy analysis
 };
